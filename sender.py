@@ -48,6 +48,8 @@ class Sender():
 			except FileNotFoundError:
 				print("Wrong file or file path")
 
+		return
+
 	def _updateCounter(self):
 		contents = Path("storage_files/counter.txt").read_text()
 		contents = contents.split(';\n')
@@ -62,6 +64,7 @@ class Sender():
 			if(self.isSynchToken):
 				counters[indexID] = str(self.counter + 1)
 			else:
+				self.counter = int(counters[indexID])
 				counters[indexID] = str(int(counters[indexID]) + 1)
 		else:
 			walletID.append(recvID)	
@@ -78,10 +81,13 @@ class Sender():
 		except FileNotFoundError:
 			print("Wrong file or file path")
 
-	def sendMoney(self):
-		token = self._getToken()
+		return
 
+	def sendMoney(self):
 		self._updateBalance()
 		self._updateCounter()
+		token = self._getToken()
+
+		print('Wallet updated.')
 
 		return binascii.hexlify(token)
