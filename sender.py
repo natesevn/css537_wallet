@@ -32,10 +32,7 @@ class Sender():
 
 		return cipherToken	
 
-	def sendMoney(self):
-		token = self._getToken()
-		
-		# Update Balance
+	def _updateBalance(self):
 		if(not self.isSynchToken):
 			try:
 				fio = open("storage_files/balance.txt", "r+")
@@ -49,9 +46,9 @@ class Sender():
 				fio.write(newTransaction)
 				fio.close()
 			except FileNotFoundError:
-				print("Wrong file or file path")	
+				print("Wrong file or file path")
 
-		# Update Counter
+	def _updateCounter(self):
 		contents = Path("storage_files/counter.txt").read_text()
 		contents = contents.split(';\n')
 
@@ -79,6 +76,12 @@ class Sender():
 			fioc.write(ctrString)
 			fioc.close()	
 		except FileNotFoundError:
-			print("Wrong file or file path")	
+			print("Wrong file or file path")
+
+	def sendMoney(self):
+		token = self._getToken()
+
+		self._updateBalance()
+		self._updateCounter()
 
 		return binascii.hexlify(token)
