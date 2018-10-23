@@ -1,4 +1,5 @@
 from aescipher import AESCipher
+from pathlib import Path
 import binascii
 
 class Sender():
@@ -8,6 +9,11 @@ class Sender():
 		self.recvID = recvID
 		self.amount = amount
 		self.counter = 0
+
+		if(self.amount == 0):
+			self.isSynchToken = True
+		else:
+			self.isSynchToken = False
 
 	def _concatenateInfo(self):
 
@@ -24,20 +30,13 @@ class Sender():
 		plainToken = self._concatenateInfo()
 		cipherToken = cipher.encrypt(plainToken)
 
-		return cipherToken
-
-	def _getCounter(self):
-
-		# TODO:
-		# Open file and get associated counter
-
-		return
+		return cipherToken	
 
 	def sendMoney(self):
 		token = self._getToken()
 		
 		# Update Balance
-		if(self.amount != 0):
+		if(not self.isSynchToken):
 			try:
 				fio = open("storage_files/balance.txt", "r+")
 
@@ -52,7 +51,34 @@ class Sender():
 			except FileNotFoundError:
 				print("Wrong file or file path")	
 
-		
 		# Update Counter
+		contents = Path("storage_files/counter.txt").read_text()
+		contents = contents.split(';\n')
+
+		walletID = contents[0].split(',')
+		counters = contents[1].split(',')
+		
+		recvID = str(self.recvID)
+		if(recvID in walletID):
+			indexID = walletID.index(recvID)
+
+			if(self.isSynchToken):
+				counters[indexID] = str(self.counter + 1)
+			else:
+				counters[indexID] = str(int(counters[indexID]) + 1)
+		else:
+			walletID.append(recvID)	
+			counters.append(str(self.counter + 1))
+
+		idString = (','.join(walletID) + ';\n')
+		ctrString = (','.join(counters))
+
+		try:
+			fioc = open("storage_files/counter.txt", "w")
+			fioc.write(idString)
+			fioc.write(ctrString)
+			fioc.close()	
+		except FileNotFoundError:
+			print("Wrong file or file path")	
 
 		return binascii.hexlify(token)
