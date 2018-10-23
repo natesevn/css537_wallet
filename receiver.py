@@ -6,8 +6,21 @@ class Receiver():
 		self.token = token
 
 	def _getInfo(self, plainToken):
-		# TODO
-		return 'TODOTODOTODOTODO'
+
+		self.sendID = plainToken[:4].lstrip('0')
+		self.walletID = plainToken[4:8].lstrip('0')
+		amount = plainToken[8:12]
+		if(amount == '0000'):
+			self.amount = 0
+		else:
+			self.amount = amount.lstrip('0')
+		counter = plainToken[12:16]
+		if(counter == '0000'):
+			self.counter = 0
+		else:
+			self.counter = counter.lstrip('0')
+	
+		return 
 
 	def _getPlainToken(self):
 		cipher = AESCipher()
