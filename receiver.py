@@ -4,6 +4,7 @@ from binascii import unhexlify
 
 class Receiver():
 
+	# myID is in integers
 	def __init__(self, token, myID):
 		self.token = unhexlify(token)
 		self.myID = myID
@@ -61,7 +62,7 @@ class Receiver():
 				counters[indexID] = str(self.counter + 1)	
 			else:
 				self.verified = False
-		else:
+		else:	
 			if(self.isSynchToken and (self.recvID == self.myID)):
 				walletID.append(sendID)	
 				counters.append(str(self.counter + 1))	

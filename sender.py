@@ -73,13 +73,15 @@ class Sender():
 		idString = (','.join(walletID) + ';\n')
 		ctrString = (','.join(counters))
 
-		try:
-			fioc = open("storage_files/counter.txt", "w")
-			fioc.write(idString)
-			fioc.write(ctrString)
-			fioc.close()	
-		except FileNotFoundError:
-			print("Wrong file or file path")
+		# do not write anything to counter file if synchronizing
+		if(not self.isSynchToken):
+			try:
+				fioc = open("storage_files/counter.txt", "w")
+				fioc.write(idString)
+				fioc.write(ctrString)
+				fioc.close()	
+			except FileNotFoundError:
+				print("Wrong file or file path")
 
 		return
 
