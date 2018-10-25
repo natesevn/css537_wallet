@@ -20,9 +20,16 @@ class Receiver():
 			self.isSynchToken = False
 
 	def _getInfo(self, plainToken):
-
-		self.sendID = int(plainToken[:4].lstrip('0'))
-		self.recvID = int(plainToken[4:8].lstrip('0'))
+		sendID = plainToken[:4]
+		if(sendID == '0000'):
+			self.sendID = 0
+		else:
+			self.sendID = int(sendID.lstrip('0'))
+		recvID = plainToken[4:8].lstrip('0')
+		if(recvID == '0000'):
+			self.recvID = 0
+		else:
+			self.recvID = int(recvID.lstrip('0'))
 		amount = plainToken[8:12]
 		if(amount == '0000'):
 			self.amount = 0
