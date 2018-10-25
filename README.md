@@ -1,6 +1,6 @@
 Wallet application for CSS537 assignment.
 
 Instructions:
-1) Create a new folder called storage_files in the root directory
-2) Create file storage_files/balance.txt 
-3) Create file storage_files/counter.txt
+1) Run ./generate_files script to generate the necessary storage_files. 
+2) Install pycrypto, pathlib, binascii.
+3) Change hardcoded walletIDs if necessary. 
