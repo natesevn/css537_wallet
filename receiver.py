@@ -69,6 +69,7 @@ class Receiver():
 				counters[indexID] = str(self.counter + 1)	
 			else:
 				self.verified = False
+				print('Sender has not entered your ID correctly OR counter in your record does not match up the one you received.')
 		else:	
 			if(self.isSynchToken and (self.recvID == self.myID)):
 				walletID.append(sendID)	
@@ -76,6 +77,7 @@ class Receiver():
 				self.verified = True
 			else:
 				self.verified = False
+				print('Sender has not entered your ID correctly OR sender ID was not found in your records.')
 
 		if(self.verified):
 			idString = (','.join(walletID) + ';\n')
@@ -104,6 +106,8 @@ class Receiver():
 				newBalance = int(lastTransaction[0]) + self.amount
 				newTransaction = str(newBalance) + ',' + str(self.amount) + '\n'
 
+				self.newBalance = newBalance 
+
 				fio.write(newTransaction)
 				fio.close()
 			except FileNotFoundError:
@@ -117,6 +121,9 @@ class Receiver():
 			print('Wallet updated.')
 
 			self._updateBalance()
+
+			print('You have received ' + str(self.amount) + ' from wallet ID ' + str(self.sendID) + '.')
+			print('You now have ' + str(self.newBalance) + ' in your wallet.')
 
 			return True
 		else:
