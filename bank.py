@@ -65,8 +65,8 @@ while (var != 'exit'):
 		
 		token = input("Now Enter the token you received from the other user: ");
 		#token = hexlify(b'a41256731a3ed2b725629023e1201055')
-		#myId = input("Enter your id: ");
-		myReceiver = Receiver(token, int(1234));
+		myId = input("Enter your id: ");
+		myReceiver = Receiver(token, int(myId));
 		myReceiver.recvMoney();
 
 	var = input("\n\n\nYour last request was completed, what would you like to do next? \nFor receiving funds from the bank, press '1'\nFor receiving money from another customer, press '2'\n" +
