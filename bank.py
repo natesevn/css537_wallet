@@ -44,7 +44,7 @@ while (var != 'exit'):
 		#myId = input("Enter your id: ");
 		myReceiver = Receiver(token, int(1234) );
 
-		#myReceiver.recvMoney();
+		myReceiver.recvMoney();
 
 	elif var == '3':
 		print("You chose to send money to another customer:");
