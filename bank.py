@@ -40,7 +40,6 @@ while (var != 'exit'):
 	elif var == '2':
 		print("You chose to receive money from another customer:");
 		token = input("Enter your token here: ");
-		#token = hexlify(b'a41256731a3ed2b725629023e1201055')
 		#myId = input("Enter your id: ");
 		myReceiver = Receiver(token, int(myID) );
 
@@ -51,22 +50,28 @@ while (var != 'exit'):
 		#sendID = input("Please enter your wallet ID: ");
 		receiverID = input("Please enter your receiver ID: ");
 		amount = input("Finally, please enter the amount you would like to send to receiver "+receiverID+ ": ");
+
 		mySender =  Sender(int(myID), receiverID, int(amount))
+
 		token = mySender.sendMoney();
 		print("Your token is " + str(token) + ", present it to your receiver.");
-	else :
+	elif var == '4':
 		print("You chose to synchronize the users:");
 
 		#sendID = input("Please enter your wallet ID: ");
 		receiverID = input("Please enter your receiver ID: ");
+
 		mySender =  Sender(int(myID), receiverID, int(0))
+
 		token = mySender.sendMoney();
 		print("Your token is " + str(token));
 		
 		token = input("Now enter the token you received from the other user: ");
 		#token = hexlify(b'a41256731a3ed2b725629023e1201055')
 		#myId = input("Enter your id: ");
+
 		myReceiver = Receiver(token, int(myID));
+
 		myReceiver.recvMoney();
 
 	var = input("\n\n\nYour last request was completed, what would you like to do next? \nFor receiving funds from the bank, press '1'\nFor receiving money from another customer, press '2'\n" +
