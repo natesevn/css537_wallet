@@ -13,7 +13,6 @@ class Receiver():
 
 		plainToken = str(self._getPlainToken(), 'utf-8')
 		self._getInfo(plainToken)
-		print(plainToken)
 
 		if(self.amount == 0):
 			self.isSynchToken = True
@@ -68,6 +67,9 @@ class Receiver():
 			if(self._verifyIDCounter(int(counters[indexID]))):
 				self.verified = True
 				counters[indexID] = str(self.counter + 1)	
+			elif(self.isSynchToken):
+				self.verified = True
+				counters[indexID] = str(self.counter + 1)
 			else:
 				self.verified = False
 				print('Sender has not entered your ID correctly OR counter in your record does not match up the one you received.')
@@ -123,8 +125,9 @@ class Receiver():
 
 			self._updateBalance()
 
-			print('You have received ' + str(self.amount) + ' from wallet ID ' + str(self.sendID) + '.')
-			print('You now have ' + str(self.newBalance) + ' in your wallet.')
+			if(not self.isSynchToken):
+				print('You have received ' + str(self.amount) + ' from wallet ID ' + str(self.sendID) + '.')
+				print('You now have ' + str(self.newBalance) + ' in your wallet.')
 
 			return True
 		else:

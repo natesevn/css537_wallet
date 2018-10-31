@@ -4,7 +4,7 @@ from aescipher import AESCipher
 from binascii import hexlify
 import hashlib
 
-myID = 1234
+myID = 1234 
 print("Hello, welcome to our banking system,\nFor receiving funds from the bank, press '1'\nFor receiving money from another customer, press '2'\n" +
 		"For sending money to another customer, press '3'\nFor synchronizing customers, press '4'\nTo quit, type in 'exit'");
 var  = input("Please enter your selection: ")
