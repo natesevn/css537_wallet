@@ -51,7 +51,7 @@ while (var != 'exit'):
 		sendID = input("Please enter your wallet ID: ");
 		receiverID = input("Please enter your receiver ID: ");
 		amount = input("Finally, please enter the amount you would like to send to receiver "+receiverID+ ": ");
-		mySender =  Sender(sendID, receiverID, amount)
+		mySender =  Sender(sendID, receiverID, int(amount))
 		token = mySender.sendMoney();
 		print("Your token is " + str(token) + ", present it to your receiver.");
 	else :
