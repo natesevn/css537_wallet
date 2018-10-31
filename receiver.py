@@ -9,6 +9,7 @@ class Receiver():
 		self.token = unhexlify(token)
 		self.myID = myID
 		self.verified = False
+		self.newBalance = 0
 
 		plainToken = str(self._getPlainToken(), 'utf-8')
 		self._getInfo(plainToken)
