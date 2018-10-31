@@ -4,7 +4,7 @@ from aescipher import AESCipher
 from binascii import hexlify
 import hashlib
 
-
+myID = 1234
 print("Hello, welcome to our banking system,\nFor receiving funds from the bank, press '1'\nFor receiving money from another customer, press '2'\n" +
 		"For sending money to another customer, press '3'\nFor synchronizing customers, press '4'\nTo quit, type in 'exit'");
 var  = input("Please enter your selection: ")
@@ -41,7 +41,7 @@ while (var != 'exit'):
 		print("You chose to receive money from another customer:");
 		token = input("Enter your token here: ");
 		#myId = input("Enter your id: ");
-		myReceiver = Receiver(token, int(1234) );
+		myReceiver = Receiver(token, int(myID) );
 
 		myReceiver.recvMoney();
 
@@ -50,7 +50,9 @@ while (var != 'exit'):
 		#sendID = input("Please enter your wallet ID: ");
 		receiverID = input("Please enter your receiver ID: ");
 		amount = input("Finally, please enter the amount you would like to send to receiver "+receiverID+ ": ");
-		mySender =  Sender(int(1234), receiverID, int(amount))
+
+		mySender =  Sender(int(myID), receiverID, int(amount))
+
 		token = mySender.sendMoney();
 		print("Your token is " + str(token) + ", present it to your receiver.");
 	elif var == '4':
@@ -58,14 +60,18 @@ while (var != 'exit'):
 
 		#sendID = input("Please enter your wallet ID: ");
 		receiverID = input("Please enter your receiver ID: ");
-		mySender =  Sender(int(1234), receiverID, int(0))
+
+		mySender =  Sender(int(myID), receiverID, int(0))
+
 		token = mySender.sendMoney();
 		print("Your token is " + str(token));
 		
 		token = input("Now enter the token you received from the other user: ");
 		#token = hexlify(b'a41256731a3ed2b725629023e1201055')
 		#myId = input("Enter your id: ");
-		myReceiver = Receiver(token, int(1234));
+
+		myReceiver = Receiver(token, int(myID));
+
 		myReceiver.recvMoney();
 
 	var = input("\n\n\nYour last request was completed, what would you like to do next? \nFor receiving funds from the bank, press '1'\nFor receiving money from another customer, press '2'\n" +
